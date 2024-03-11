@@ -5,18 +5,26 @@ import org.junit.Before;
 import org.junit.Test;
 
 import abilities.UnitAbility;
+import akka.actor.ActorRef;
+import structures.GameState;
 import structures.basic.Card;
-import structures.basic.CardWrapper;
 import structures.basic.UnitCard;
+import structures.basic.UnitWrapper;
 
 public class UnitCardTest {
     private UnitCard unitCard;
     private Card card; // Assume this is a valid Card object
-    private UnitAbility ability; // Assume this is a valid UnitAbility object
+    private UnitAbility ability; // This will be a dummy UnitAbility object
 
     @Before
     public void setUp() {
         card = new Card();
+        ability = new UnitAbility() {
+            @Override
+            public void applyAbility(ActorRef out, GameState gameState, UnitWrapper unit) {
+                // Dummy implementation
+            }
+        };
         unitCard = new UnitCard(5, "Test UnitCard", card, 10, 20, ability);
     }
 
@@ -38,6 +46,5 @@ public class UnitCardTest {
         assertNotNull(result);
         assertEquals(ability, result);
     }
-
 }
 
